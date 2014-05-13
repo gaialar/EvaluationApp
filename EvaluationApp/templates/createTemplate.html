@@ -1,0 +1,146 @@
+<h1 class="Header col-xs-12 col-md-6 col-md-offset-2">Create Template</h1>
+<div>
+	<div>
+	<button class="col-xs-12 col-md-2" ng-click="moveToEvaluationsIndex()">Back</button>
+	</div>
+</div>
+
+
+<div class="Template">
+	
+	<div class="basic col-md-12 col-xs-12 col-md-offset-2">
+		<!--<span>Name: </span>-->
+		<input type="text" 
+			placeholder="Title (English)" 
+			maxlength="40"
+			ng-model="templateTitleEN"
+			ng-click="clearTemplateMessage()"
+			class="stdWidth" />
+		<input type="text" 
+			placeholder="Title (Icelandic)"
+			maxlength="40"
+			ng-model="templateTitleIS"
+			ng-click="clearTemplateMessage()"
+			class="stdWidth" />
+		<input type="text" 
+			placeholder="Introduction (English)" 
+			ng-model="templateIntroEN"
+			ng-click="clearTemplateMessage()"
+			class="col-md-8 col-xs-12" />
+		<input type="text" 
+			placeholder="Introduction (Icelandic)" 
+			ng-model="templateIntroIS"
+			ng-click="clearTemplateMessage()"
+			class="col-md-8 col-xs-12" />
+	</div>
+
+	<div class="buttonOptions col-md-12 col-xs-12 col-md-offset-2">
+		<!--<span >Add: </span>-->
+		<div ng-show="showTemplateMessage">
+			<p class="showError">{{templateMessage}}</p>
+		</div>
+		<button ng-click="clickQuestion($event)" data="text" class="stdWidth" >Text question</button>
+		<button ng-click="clickQuestion($event)" data="single" class="stdWidth" >Single choice question</button>
+		<button ng-click="clickQuestion($event)" data="multiple" class="stdWidth" >Multiple choice question</button>
+	</div>
+</div>
+<div ng-show="templateTitleEN != '' || templateIntroEN != '' 
+		|| templateTitleIS != '' || templateIntroIS != ''
+		|| courseQuestions.length || teacherQuestions.length" class="col-xs-12 col-md-8 col-md-offset-2">
+	<div class="Template-questions col-xs-12 col-md-12">
+		<h2 ng-show="templateTitleEN != '' || templateTitleIS != ''" class="col-md-offset-1">{{templateTitleEN}} / {{templateTitleIS}}</h2>
+		<h3 ng-show="templateIntroEN != '' || templateIntroIS != ''" class="introduction col-md-offset-1">{{templateIntroEN}} / {{templateIntroIS}}</h3>
+		<!-- question you have already created -->
+		<ul class="Template-questions-addedQuestions">
+			<span ng-show="courseQuestions.length" class="miniHeader col-md-offset-1">Course questions:</span>
+			<li ng-repeat="question in courseQuestions" class="col-xs-12 col-md-12">
+				<p class="Template-questions-addedQuestions-number col-md-1 col-xs-1">{{question.ID}}) </p>
+				<p class="Template-questions-addedQuestions-text col-md-10 col-xs-10">{{question.TextEN}} / {{question.TextIS}}</p>
+				<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
+					<span class="col-md-offset-1 col-md-11">Answers (English / Icelandic (weight):</span>
+					<ul>
+						<li ng-repeat="answer in question.Answers">
+							<span class="col-md-10 col-md-offset-2">{{answer.ID}}. {{answer.TextEN}} / {{answer.TextIS}} ({{answer.Weight}}))</span>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<ul class="Template-questions-addedQuestions">
+			<span ng-show="teacherQuestions.length" class="miniHeader col-md-offset-1">Teacher questions:</span>
+			<li ng-repeat="question in teacherQuestions" class="col-xs-12 col-md-12">
+				<p class="Template-questions-addedQuestions-number col-md-1 col-xs-1">{{question.ID}}) </p>
+				<p class="Template-questions-addedQuestions-text col-md-10 col-xs-10">{{question.TextEN}}</p>
+				<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
+					<span class="col-md-offset-1 col-md-11">Answers (English / Icelandic (weight):</span>
+					<ul>
+						<li ng-repeat="answer in question.Answers">
+							<span class="col-md-10 col-md-offset-2">{{answer.ID}}. {{answer.TextEN}} / {{answer.TextIS}} ({{answer.Weight}}))</span>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div ng-show="creatingQuestion" class="col-xs-12 col-md-8 col-md-offset-2">
+	<div ng-show="showQuestionMessage">
+		<p class="showError">{{questionMessage}}</p>
+	</div>
+	<div class="Template-questions col-xs-12 col-md-12">
+		<!-- what kind of question want you to create? -->
+		<ul class="Template-questions-whichQuestion">
+			<li> <!-- $location.hash('saveTemplateButton'); -->
+				<p class="miniHeader col-md-offset-1">New question:</p>
+				<form name="questionForm" >
+					<input type="text"
+							class="col-md-offset-1 col-md-5 col-xs-6"
+							ng-model="textEN"
+							ng-click="clearQuestionMessage()"
+							placeholder="Question (English)"
+							autofocus />
+					<input type="text"
+							class="col-md-5 col-xs-6"
+							ng-model="textIS"
+							ng-click="clearQuestionMessage()"
+							placeholder="Question (Icelandic)" />
+					<div ng-show="currentQuestionType == 'multiple' || currentQuestionType == 'single'">
+						<p class="col-md-offset-1">Answers:</p>
+						<ul>
+							<li ng-repeat="answer in answers">
+								<input type="text" ng-model="answer.TextEN" ng-click="clearQuestionMessage()" placeholder="Answer #{{answer.ID}} (English)" class="col-md-offset-1" />
+								<input type="text" ng-model="answer.TextIS" ng-click="clearQuestionMessage()" placeholder="Answer #{{answer.ID}} (Icelandic)" />
+								<input class="answerWeight" type="text" ng-click="clearQuestionMessage()" ng-model="answer.Weight" placeholder="Weight" />
+							</li>
+						</ul>
+						<div>
+							<button ng-hide="answersSize == 5"
+									ng-click="createAnswer()"
+									ng-class="{test: foo == 1}"
+									class="col-md-offset-1"
+									>Add answer</button>
+							<button ng-hide="answersSize == 2" ng-click="deleteAnswer()">Remove answer</button>
+						</div>
+					</div>
+
+					<button ng-click="selectQuestionCategory($event)" data="course" class="col-xs-6 col-md-offset-1 col-md-2 selectedButton" id="courseButton">Course</button>
+				 	<button ng-click="selectQuestionCategory($event)" data="teacher" id="teacherButton" class="col-xs-6 col-md-2">Teacher</button>
+					<button type="submit" ng-click="saveQuestion()" class="col-xs-12 col-md-3 col-md-offset-3 saveQuestion">Save</button>
+				</form>
+			</li>
+		</ul>
+	</div>
+</div>
+<div>
+	<div>
+		<button  ng-click="saveTemplate()" class="col-xs-6 col-md-offset-8 col-md-2">Save Template</button>
+	</div>
+</div>
+
+<!-- 
+
+	ng-show="templateTitleEN != undefined && templateIntroEN != undefined 
+		&& templateTitleIS != undefined && templateIntroIS != undefined
+		&& (courseQuestions.length || teacherQuestions.length)"
+
+-->

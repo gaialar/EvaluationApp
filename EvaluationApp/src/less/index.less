@@ -1,0 +1,104 @@
+@import "createTemplate.less";
+@import "evaluation.less";
+@import "login.less";
+
+@backgroundColor: white;
+@color: #1FBCFF;
+@fillColor: #EDF5FC;
+@headerSize: 50px;
+@header2Size: 28px;
+@fontSize: 18px;
+@listSize: 18px;
+@listPadding: 5px;
+@listMargin: 15px;
+@borderColor: #1FBCFF;
+@borderSelected: #55F284;
+@borderWeight: 4px;
+@borderRadius: 15px;
+@height: 400px;
+
+body{
+	color: @color;
+	font-size: @fontSize;
+	/*background-color: #F0F0F0;
+	background-color: #DBE7FF;*/
+	background-color: #E6EEFF;
+}
+
+li, ul {
+	list-style: none;
+	padding-left:0;
+	margin-top: @listMargin;
+}
+
+input {
+	padding: @listPadding;
+    border: solid @borderWeight @borderColor;
+    border-radius: @borderRadius;
+    background-color: @backgroundColor;
+}
+
+button {
+	margin-top: 10px;
+}
+
+.Header {
+	color: @color;
+	font-size: @headerSize;
+	margin-top: 0px;
+}	
+
+h2 {
+	font-size: @header2Size;
+}
+
+h3 {
+	font-size: 20px;
+}
+
+.introduction {
+	font-style: italic;
+}
+
+.miniHeader {
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.navbar {
+	background-color: @borderColor;
+	.navbar-brand {
+		color: @backgroundColor;
+	}
+	.nav > li > a {
+		color: @backgroundColor;
+	}
+}
+
+.ListItem, button, .Template-questions-addedQuestions-text, .Template-questions{  	
+    color: @color;  
+    background-color: @fillColor;
+    font-size: @listSize;
+    padding: @listPadding;
+    border: solid @borderWeight @borderColor;
+    border-radius: @borderRadius;
+    min-width: 120px;
+}   
+
+.ListItem, button{
+	background-color: @fillColor;
+    &:hover {  
+        border-color: @borderSelected;
+        color: @borderSelected;
+        text-decoration: none; 
+    }  
+}
+
+.ListWrapper {
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.stdWidth {
+	width: 240px;
+}

@@ -1,0 +1,10 @@
+bower_components/
+node_modules/
+Evaluation/
+
+Skilaverkefni3.pdf
+TODO.txt
+
+EvaluationApp/test/coverage/
+*.js.html
+EvaluationApp/build/evaluation-app.min.css

@@ -1,0 +1,59 @@
+<div>
+	<div class="Template-questions col-xs-12 col-md-8 col-md-offset-2">
+		<h2 class="col-md-offset-1">{{ evaluation.TitleEN }} / {{ evaluation.TitleIS }}</h2>
+		<h3 class="introduction col-md-offset-1">{{evaluation.IntroTextEN}} / {{evaluation.IntroTextIS}}</h3>
+		<ul class="Template-questions-addedQuestions">
+			<span ng-show="evaluation.CourseQuestions.length" class="miniHeader col-md-offset-1">Course questions:</span>
+			<li ng-repeat="question in evaluation.CourseQuestions" class="col-xs-12 col-md-12">
+				<p class="Template-questions-addedQuestions-number col-md-1 col-xs-1">{{$index+1}}) </p>
+				<p class="Template-questions-addedQuestions-text col-md-10 col-xs-10">{{question.TextEN}} / {{question.TextIS}}</p>
+				<div ng-show="question.Type == 'text'">
+					<textarea placeholder="Type text here (English / Icelandic)"
+								style="width: 700px; height: 150px; resize:none;"
+								id="question{{question.ID}}"
+								ng-blur="updateSubmissionText($event)"
+								data="{{question.ID}}"></textarea>
+				</div>
+				<div ng-show="question.Type == 'single'">
+					<ul>
+						<li ng-repeat="answer in question.Answers">
+							<input type="radio" class="col-md-10 col-md-offset-2"
+									name="question{{$parent.$index+1}}" value="{{answer.ID}}" 
+									ng-click="updateSubmissionSingleOrMutiplie($event)" data="{{question.Type}}-{{question.ID}}-{{answer.ID}}">
+									{{ answer.TextEN }} / {{ answer.TextIS }}
+							</input>
+						</li>
+					</ul>
+				</div>
+				<div ng-show="question.Type == 'multiple'">
+					<ul>
+						<li ng-repeat="answer in question.Answers" id="question{{question.ID}}">
+							<input type="checkbox" class="col-md-10 col-md-offset-2"
+									name="question{{$parent.$index+1}}" value="{{answer.ID}}" 
+									ng-click="updateSubmissionSingleOrMutiplie($event)" data="{{question.Type}}-{{question.ID}}-{{answer.ID}}">
+								{{ answer.TextEN }} / {{ answer.TextIS }}
+							</input>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<ul class="Template-questions-addedQuestions">
+			<span ng-show="evaluation.TeacherQuestions.length" class="miniHeader col-md-offset-1">Teacher questions:</span>
+			<li ng-repeat="question in evaluation.TeacherQuestions" class="col-xs-12 col-md-12">
+				<p class="Template-questions-addedQuestions-number col-md-1 col-xs-1">{{$index+1}}) </p>
+				<p class="Template-questions-addedQuestions-text col-md-10 col-xs-10">{{question.TextEN}}</p>
+				<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
+					<span class="col-md-offset-1 col-md-11">Answers (English / Icelandic (weight):</span>
+					<ul>
+						<li ng-repeat="answer in question.Answers">
+							<span class="col-md-10 col-md-offset-2">{{answer.ID}}. {{answer.TextEN}} / {{answer.TextIS}} ({{answer.Weight}}))</span>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<button ng-click="moveToStudentIndex()" class="col-xs-6 col-md-offset-2 col-md-2">Back</button>
+<button type="submit" ng-click="submitEvaluation()" class="col-xs-6 col-md-2">Submit</button>

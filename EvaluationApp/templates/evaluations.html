@@ -1,0 +1,17 @@
+<h1 class="Header col-xs-12 col-md-5 col-md-offset-2">New Evaluation</h1>
+<div class="TemplateButtons col-xs-12 col-md-4">
+	<button ng-click="moveToCreateTemplateIndex()">New Template</button>
+	<button ng-click="moveToAdminIndex()">Back</button>
+</div>
+<div class="col-xs-12 col-md-5 col-md-offset-2">
+	<p>Templates:</p>
+	<ul>
+		<p ng-show="noTemplates">No templates available</p>
+		<li ng-repeat="template in templates">
+			<!-- tók af klasa, class="ListItem" -->
+			<a class="ListItem ListWrapper" ng-href="#/admin/evaluations/viewTemplate/{{ template.ID }}">
+				{{ template.TitleEN }}
+			</a>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,59 @@
+<div>
+	<div class="Template-questions col-xs-12 col-md-8 col-md-offset-2">
+		<h2 class="col-md-offset-1">{{ template.TitleEN }} / {{ template.TitleIS }}</h2>
+		<h3 class="introduction col-md-offset-1">{{template.IntroTextEN}} / {{template.IntroTextIS}}</h3>
+		<ul class="Template-questions-addedQuestions">
+			<span ng-show="template.CourseQuestions.length" class="miniHeader col-md-offset-1">Course questions:</span>
+			<li ng-repeat="question in template.CourseQuestions" class="col-xs-12 col-md-12">
+				<p class="Template-questions-addedQuestions-number col-md-1 col-xs-1">{{$index+1}}) </p>
+				<p class="Template-questions-addedQuestions-text col-md-10 col-xs-10">{{question.TextEN}} / {{question.TextIS}}</p>
+				<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
+					<span class="col-md-offset-1 col-md-11">Answers (English / Icelandic (weight):</span>
+					<ul>
+						<li ng-repeat="answer in question.Answers">
+							<span class="col-md-10 col-md-offset-2">{{answer.ID}}. {{answer.TextEN}} / {{answer.TextIS}} ({{answer.Weight}}))</span>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+		<ul class="Template-questions-addedQuestions">
+			<span ng-show="template.TeacherQuestions.length" class="miniHeader col-md-offset-1">Teacher questions:</span>
+			<li ng-repeat="question in template.TeacherQuestions" class="col-xs-12 col-md-12">
+				<p class="Template-questions-addedQuestions-number col-md-1 col-xs-1">{{$index+1}}) </p>
+				<p class="Template-questions-addedQuestions-text col-md-10 col-xs-10">{{question.TextEN}}</p>
+				<div ng-show="question.Type == 'multiple' || question.Type == 'single'">
+					<span class="col-md-offset-1 col-md-11">Answers (English / Icelandic (weight):</span>
+					<ul>
+						<li ng-repeat="answer in question.Answers">
+							<span class="col-md-10 col-md-offset-2">{{answer.ID}}. {{answer.TextEN}} / {{answer.TextIS}} ({{answer.Weight}}))</span>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="col-md-8 col-md-offset-2 col-xs-12 Template-questions" ng-show="creatingTemplate">
+	<div class="col-md-12" >
+		<ul>
+			<span class="miniHeader">Create evaluation:</span>
+				<form name="evaluationForm" novalidate>
+					<div>
+						<span class="col-md-2">Start date:</span>
+						<input type="datetime-local" ng-click="clearErrorMessage()" id="startDateTime" name="startDateTime">
+					</div>
+					<div>
+						<span class="col-md-2">End date:</span>
+						<input type="datetime-local" ng-click="clearErrorMessage()" id="endDateTime" name="endDateTime">
+					</div>
+					<p class="showError" ng-show="showErrorMessage">{{errorMessage}}</p>
+					<button type="submit" ng-click="launchEvaluation()">Launch Evaluation</button>
+					<button ng-click="cancelUseTemplate()">Cancel</button>
+				</form>
+			</li>
+		</ul>
+	</div>
+</div>
+<button ng-click="moveToEvaluationIndex()" class="col-xs-6 col-md-offset-2 col-md-2">Back</button>
+<button ng-click="useTemplate()" ng-hide="creatingTemplate" class="col-xs-6 col-md-2">Use Template</button>

@@ -1,0 +1,47 @@
+<h1 class="Header col-xs-12 col-md-5">Evaluations</h1>
+<div class="TemplateButtons col-xs-12 col-md-3 col-md-offset-3">
+	<button value="Templates" ng-click="moveToEvaluationsIndex()">New Evaluation</button>
+</div>
+<div class="col-md-12"></div>
+<div class="leftContainer col-xs-12 col-md-3">
+	<h2>New</h2>
+	<ul>
+		<p ng-show="noNew">{{message}}</p>
+		<div ng-show="someNew">
+			<li ng-repeat="evaluation in evaluations">
+				<div ng-show="evaluation.Status == 'new'">
+					<!-- tók af klasa, class="ListItem" -->
+					<a class="ListItem ListWrapper" ng-click="setDates(evaluation.StartDate, evaluation.EndDate)" ng-href="#/admin/ongoing/{{ evaluation.ID }}">{{ evaluation.TemplateTitleEN }}</a>
+				</div>
+			</li>
+		</div>
+	</ul>
+</div>
+<div class="middleContainer col-xs-12 col-md-3 col-md-offset-1">
+	<h2>Open</h2>
+	<ul>
+		<p ng-show="noOpen">{{message}}</p>
+		<div ng-show="someOpen">
+			<li ng-repeat="evaluation in evaluations">
+				<div ng-show="evaluation.Status == 'open'">
+					<!-- tók af klasa, class="ListItem" -->
+					<a class="ListItem ListWrapper" ng-click="setDates(evaluation.StartDate, evaluation.EndDate)" ng-href="#/admin/ongoing/{{ evaluation.ID }}">{{ evaluation.TemplateTitleEN }}</a>
+				</div>
+			</li>
+		</div>
+	</ul>
+</div>
+<div class="rightContainer col-xs-12 col-md-3 col-md-offset-1">
+	<h2>Closed</h2>
+	<ul>
+		<p ng-show="noClosed">{{message}}</p>
+		<div ng-show="someClosed">
+			<li ng-repeat="evaluation in evaluations">
+				<div ng-show="evaluation.Status == 'closed'">
+					<!-- tók af klasa, class="ListItem" -->
+					<a class="ListItem ListWrapper" ng-click="setDates(evaluation.StartDate, evaluation.EndDate)" ng-href="#/admin/result/{{ evaluation.ID }}">{{ evaluation.TemplateTitleEN }}</a>
+				</div>
+			</li>
+		</div>
+	</ul>
+</div>

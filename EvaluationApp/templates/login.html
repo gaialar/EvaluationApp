@@ -1,0 +1,20 @@
+<h1 class="Header Login col-md-7 col-md-offset-2">Login</h1>
+<form name="loginForm" class="Login col-md-7 col-md-offset-2" novalidate>
+ 	<input type="text"
+ 			name="username"
+ 			ng-model="username"
+ 			ng-click="clearMessage()"
+ 			placeholder="Username"
+ 			class="Login-input"
+ 			required
+ 			autofocus />
+ 	<input type="password"
+ 			name="password" 
+ 			ng-model="password"
+ 			ng-click="clearMessage()"
+ 			placeholder="Password"
+ 			class="Login-input"
+ 			required />
+ 	<p ng-show="login.failure">{{login.message}}</p>
+  	<button type="submit" ng-click="login()">Login</button>
+</form>

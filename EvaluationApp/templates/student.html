@@ -1,0 +1,23 @@
+<h1 class="Header col-md-6 col-md-offset-2">Evaluations</h1>
+<ul>
+	<p class="col-md-6 col-md-offset-2" ng-show="noEvaluations">{{message}}</p>
+	<li ng-repeat="evaluation in evaluations" class="col-md-6 col-md-offset-2">
+		<div class="col-xs-12 col-md-12" ng-if="evaluations[$index-1].CourseNameEN !== evaluation.CourseNameEN">
+			<p class="miniHeader">{{ evaluation.CourseNameEN }} ({{ evaluation.CourseID }})</p>
+			<a class="ListItem col-md-offset-1" ng-href="#/student/courses/
+						{{evaluation.CourseID}}/
+						{{evaluation.Semester}}/
+						evaluations/
+						{{evaluation.ID}}/">{{ evaluation.TemplateNameEN }}
+			</a>
+		</div>
+		<div class="col-xs-12 col-md-12" ng-if="evaluations[$index-1].CourseNameEN === evaluations[$index].CourseNameEN">
+			<a class="ListItem col-md-offset-1" ng-href="#/student/courses/
+						{{evaluation.CourseID}}/
+						{{evaluation.Semester}}/
+						evaluations/
+						{{evaluation.ID}}/">{{ evaluation.TemplateNameEN }}
+			</a>
+		</div>
+	</li>
+</ul>

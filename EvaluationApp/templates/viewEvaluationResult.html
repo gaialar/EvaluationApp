@@ -1,0 +1,32 @@
+<div class="Template-questions col-xs-12 col-md-offset-2 col-md-4">
+	<p class="col-md-12 col-xs-12 miniHeader">StartDate: </p>
+	<p class="col-md-12 col-xs-12">{{ startDate }} </p>
+</div>
+<div class="Template-questions col-xs-12 col-md-4">
+	<p class="col-md-12 col-xs-12 miniHeader">EndDate: </p>
+	<p class="col-md-12 col-xs-12">{{ endDate }} </p>
+</div>
+<div>
+	<div class="Template-questions col-xs-12 col-md-8 col-md-offset-2">
+		<ul class="Template-questions-addedQuestions">
+			<li ng-repeat="courses in evaluations.Courses" class="col-xs-12 col-md-12">
+				<p class="Template-questions-addedQuestions-number">{{courses.CourseNameEN}} </p>
+				<ul>
+					<li ng-repeat="question in courses.Questions">
+						<span class="miniHeader" ng-hide="question.TeacherSSN !== null">Course related question: </span>
+						<span class="miniHeader" ng-hide="question.TeacherSSN === null">Teacher related question: </span>
+						<span class="miniHeader">{{question.TextEN}}</span>
+						<!--<p ng-hide="question.OptionsResults !== null" class="col-md-offset-1">No answers are available for this question</p>-->
+						<ul class="col-md-offset-1">
+							<il ng-repeat="option in question.OptionsResults">
+								<p>{{option.AnswerTextEN}} : {{option.Count}}</p>
+							</il>
+						</ul>
+					</li>
+				</ul>
+				<p class="miniHeader"></p>	
+			</li>
+		</ul>
+		
+	</div>
+</div>
